@@ -24,5 +24,11 @@ if st.button("Start Analysis"):
     )
 
     results = crew.kickoff()
-    st.write("### Analysis Results:")
-    st.write(results)
+    
+    # Extracting the "raw" key from results
+    if isinstance(results, dict) and "raw" in results:
+        uv_report = results["raw"].strip("```")  # Remove surrounding backticks
+        st.write("### Analysis Results:")
+        st.text(uv_report)  # Display as plain text
+    else:
+        st.error("Could not fetch UV data. Please try again.")
